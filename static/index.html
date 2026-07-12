@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Travel Assistant Demo</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <!-- Vue 3 CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+</head>
+<body>
+  <main id="app" class="page">
+
+    <!-- ====== 左侧：会话列表 ====== -->
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <h2>会话</h2>
+        <button @click="createThread">+ 新建</button>
+      </div>
+      <div class="session-list">
+        <div v-if="!threads.length" class="empty-state">暂无会话</div>
+        <div v-for="t in threads" :key="t.thread_id"
+             class="session-item"
+             :class="{ active: t.thread_id === activeTid }"
+             @click="selectThread(t.thread_id)">
+          <div class="title">{{ t.title }}</div>
+          <div class="meta">{{ t.updated_at.slice(0, 16).replace('T', ' ') }}</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ====== 右侧主区域 ====== -->
+    <section class="main">
+      <header class="topbar">
+        <div>
+          <h1>AI 旅行助手</h1>
+          <span class="thread-id-label">
+            thread_id: <code>{{ activeTid || '-' }}</code>
+          </span>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <!-- 对话区 -->
+        <div class="chat-area">
+          <div class="messages" ref="chatBox">
+            <div v-if="!messages.length" class="empty-state">输入问题开始对话</div>
+            <div v-for="(m, idx) in messages" :key="idx"
+                 class="message" :class="m.role">
+              <span class="role">{{ m.role === 'user' ? 'You' : 'Agent' }}</span>
+              <div class="content">{{ m.content }}</div>
+            </div>
+          </div>
+          <div class="composer">
+            <textarea v-model="inputText" placeholder="输入旅行问题，如：北京今天天气怎么样？"
+                      @keydown.enter.exact.prevent="sendMessage"></textarea>
+            <div class="composer-foot">
+              <span class="hint">Enter 发送 · Shift+Enter 换行</span>
+              <button @click="sendMessage" :disabled="sending">发送</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 时间线 -->
+        <div class="timeline-area">
+          <h3>执行时间线</h3>
+          <div class="timeline" ref="timelineBox">
+            <div v-if="!events.length" class="empty-state">{{ timelineHint }}</div>
+            <div v-for="ev in events" :key="ev.key"
+                 class="timeline-step" :class="ev.status">
+              <div class="step-title">
+                {{ ev.title }}
+                <span class="step-status" :class="'step-status-' + ev.status">{{ ev.status }}</span>
+              </div>
+              <div class="step-detail">{{ ev.detail }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
