@@ -1,65 +1,49 @@
-/*
-=========================================================================
- styles.css — 前端样式表
-=========================================================================
+/* ============================================================
+ styles.css — 静态前端样式（旧版，仅供参考）
+ 粉白主题
+============================================================ */
 
-CSS 变量（设计标记）：
-  --bg: 页面背景色（米白暖色）
-  --panel: 卡片背景色（白色）
-  --border: 边框色（浅棕色）
-  --text: 文字颜色（深褐色）
-  --accent: 强调色（红棕色）
-  --success: 完成/成功色（绿色）
-
-设计风格：
-  - 暖色纸质质感（旅行/布告栏主题）
-  - 大圆角、柔和阴影
-  - 时间线带纵向轨道 + 圆点指示器
-  - 适应小屏幕的响应式布局
-*/
-
-/* ============================================ */
-/* 全局变量 */
-/* ============================================ */
 :root {
-  --bg: #f5f0e8;
-  --panel: #fffdf9;
-  --border: #d8c2a3;
-  --text: #24180f;
-  --muted: #6d5b49;
-  --accent: #a04924;
-  --accent-hover: #7b3416;
-  --success: #2f7a55;
+  --bg: #fdf2f6;
+  --panel: #ffffff;
+  --border: #f0d0db;
+  --text: #2d1a24;
+  --muted: #9b7a8a;
+  --accent: #d4687c;
+  --accent-hover: #b84d62;
+  --success: #4a9b7f;
+  --danger: #e0556a;
   --radius: 16px;
+  --shadow-sm: 0 1px 3px rgba(212,104,124,0.06);
+  --shadow-md: 0 4px 12px rgba(212,104,124,0.1);
 }
 
-/* 全局重置：border-box 让 padding 不会撑大元素 */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+  font-family: "Segoe UI", "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  font-size: 15px;
   color: var(--text);
-  background: radial-gradient(circle at top left, rgba(255,227,182,0.5) 0, transparent 30%),
-              linear-gradient(160deg, #f8f3eb, var(--bg));
+  background: radial-gradient(circle at top left, rgba(255,200,215,0.45) 0, transparent 35%),
+              linear-gradient(160deg, #fef8fa, var(--bg));
   min-height: 100vh;
+  line-height: 1.6;
 }
 
-/* ============================================ */
-/* 页面网格布局（双栏） */
-/* ============================================ */
+/* ====== 页面布局 ====== */
 .page {
   max-width: 1400px;
   margin: 0 auto;
   padding: 20px;
   display: grid;
-  grid-template-columns: 260px 1fr;  /* 左侧 260px 固定，右侧自适应 */
+  grid-template-columns: 260px 1fr;
   gap: 16px;
   min-height: 100vh;
 }
 
-/* ============================================ */
-/* 侧边栏（会话列表） */
-/* ============================================ */
+/* ====== 侧边栏 ====== */
 .sidebar {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -67,6 +51,7 @@ body {
   padding: 18px;
   display: flex;
   flex-direction: column;
+  gap: 6px;
   max-height: 100vh;
 }
 
@@ -74,20 +59,24 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
-.sidebar-head h2 { font-size: 22px; }
+.sidebar-head h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
 
 .sidebar-head button {
-  background: var(--border);
-  border: 0;
+  background: linear-gradient(135deg, var(--accent), #e898a8);
+  color: #fff;
+  border: none;
   border-radius: 999px;
-  padding: 6px 14px;
+  padding: 6px 16px;
   cursor: pointer;
-  font-size: 13px;
   font-weight: 600;
+  font-size: 13px;
+  transition: opacity 0.15s, transform 0.15s;
 }
+
+.sidebar-head button:hover { transform: scale(1.03); }
 
 .session-list {
   flex: 1;
@@ -97,42 +86,39 @@ body {
   gap: 8px;
 }
 
-/* 单个会话条目 */
 .session-item {
-  padding: 12px;
-  border: 1px solid rgba(185,133,81,0.15);
+  padding: 12px 14px;
+  border: 1px solid rgba(212,104,124,0.12);
   border-radius: 12px;
   cursor: pointer;
-  transition: border-color .15s;
+  transition: border-color 0.15s, background 0.15s;
 }
 
 .session-item:hover { border-color: var(--accent); }
 .session-item.active {
   border-color: var(--accent);
-  background: rgba(160,73,36,0.06);
+  background: rgba(212,104,124,0.06);
 }
 
 .session-item .title {
   font-weight: 700;
   font-size: 14px;
   margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .session-item .meta {
   color: var(--muted);
   font-size: 11px;
-}
-
-/* ============================================ */
-/* 主区域 */
-/* ============================================ */
-.main {
   display: flex;
-  flex-direction: column;
-  min-width: 0;
+  justify-content: space-between;
 }
 
-/* 顶部条 */
+/* ====== 主区域 ====== */
+.main { display: flex; flex-direction: column; min-width: 0; }
+
 .topbar {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -142,24 +128,27 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.topbar h1 { font-size: 24px; }
-.thread-id-label { color: var(--muted); font-size: 12px; }
-.thread-id-label code { font-family: Consolas, monospace; }
+.topbar h1 { font-size: 24px; font-weight: 700; letter-spacing: -0.3px; }
 
-/* 工作区网格：对话 + 时间线 */
+.thread-id-label { color: var(--muted); font-size: 12px; }
+.thread-id-label code {
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 12px;
+}
+
 .workspace {
   display: grid;
-  grid-template-columns: 1fr 280px;  /* 对话区宽，时间线窄 */
+  grid-template-columns: 1fr 280px;
   gap: 12px;
   flex: 1;
   min-height: 0;
 }
 
-/* ============================================ */
-/* 对话区（聊天气泡） */
-/* ============================================ */
+/* ====== 对话区域 ====== */
 .chat-area {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -174,33 +163,33 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   min-height: 400px;
   max-height: calc(100vh - 260px);
-  padding: 8px;
+  padding: 8px 4px;
 }
 
-/* 消息气泡 */
 .message {
-  padding: 12px 14px;
-  border-radius: 16px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
   max-width: 80%;
   line-height: 1.7;
   white-space: pre-wrap;
   word-break: break-word;
+  font-size: 14px;
 }
 
-/* 用户消息：靠右、暖色底 */
 .message.user {
   align-self: flex-end;
-  background: #e8d4bc;
+  background: linear-gradient(135deg, #fce4ec, #f8d0db);
+  border-bottom-right-radius: 4px;
 }
 
-/* 助手消息：靠左、白底带边框 */
 .message.assistant {
   align-self: flex-start;
   background: #fff;
-  border: 1px solid rgba(185,133,81,0.2);
+  border: 1px solid rgba(212,104,124,0.15);
+  border-bottom-left-radius: 4px;
 }
 
 .message .role {
@@ -209,20 +198,30 @@ body {
   color: var(--muted);
   text-transform: uppercase;
   margin-bottom: 6px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
-/* 输入框 */
+/* ====== 输入区域 ====== */
 .composer { margin-top: 12px; }
 
 .composer textarea {
   width: 100%;
   min-height: 80px;
-  border: 1px solid rgba(185,133,81,0.25);
+  border: 1px solid rgba(212,104,124,0.25);
   border-radius: 12px;
-  padding: 10px;
+  padding: 10px 14px;
   font: inherit;
+  font-size: 14px;
   resize: vertical;
   outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  background: #fffdfd;
+}
+
+.composer textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(212,104,124,0.1);
 }
 
 .composer-foot {
@@ -238,34 +237,46 @@ body {
 }
 
 .composer-foot button {
-  background: linear-gradient(135deg, var(--accent), #bf6838);
+  background: linear-gradient(135deg, var(--accent), #e898a8);
   color: #fff;
-  border: 0;
+  border: none;
   border-radius: 999px;
-  padding: 10px 24px;
+  padding: 10px 28px;
   cursor: pointer;
   font-weight: 700;
   font-size: 14px;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 8px rgba(212,104,124,0.25);
+  transition: opacity 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.composer-foot button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(212,104,124,0.35);
 }
 
 .composer-foot button:disabled {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 
-/* ============================================ */
-/* 时间线区（Agent 执行步骤） */
-/* ============================================ */
+/* ====== 时间线 ====== */
 .timeline-area {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 14px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
 }
 
-.timeline-area h3 { font-size: 16px; margin-bottom: 10px; }
+.timeline-area h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
 
 .timeline {
   flex: 1;
@@ -275,7 +286,6 @@ body {
   position: relative;
 }
 
-/* 时间线的纵向轨道 */
 .timeline::before {
   content: "";
   position: absolute;
@@ -283,21 +293,19 @@ body {
   top: 0;
   bottom: 0;
   width: 2px;
-  background: rgba(159,76,30,0.2);
+  background: rgba(212,104,124,0.2);
 }
 
-/* 单个时间线步骤 */
 .timeline-step {
   position: relative;
   margin-bottom: 10px;
-  padding: 10px 12px;
-  border: 1px solid rgba(185,133,81,0.15);
+  padding: 10px 14px;
+  border: 1px solid rgba(212,104,124,0.12);
   border-radius: 12px;
   font-size: 13px;
-  background: rgba(255,252,247,0.9);
+  background: rgba(255,245,248,0.9);
 }
 
-/* 时间线圆点（状态指示器） */
 .timeline-step::before {
   content: "";
   position: absolute;
@@ -306,60 +314,71 @@ body {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #6c5438;          /* 默认=info */
-  border: 2px solid #f7efdf;
+  background: #d4a0ac;
+  border: 2px solid #fef5f7;
 }
 
-/* 进行中：红棕色 + 脉冲动画 */
 .timeline-step.running::before {
   background: var(--accent);
   animation: pulse 1.2s infinite;
 }
 
-/* 已完成：绿色 */
 .timeline-step.done::before { background: var(--success); }
 
 .timeline-step .step-title { font-weight: 700; margin-bottom: 4px; }
-.timeline-step .step-detail { color: var(--muted); font-size: 12px; line-height: 1.5; }
 
-/* 状态标签（running/done） */
+.timeline-step .step-detail {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
 .timeline-step .step-status {
   display: inline-block;
-  padding: 2px 8px;
+  padding: 2px 10px;
   border-radius: 999px;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
   margin-left: 6px;
+  letter-spacing: 0.3px;
 }
 
-.step-status-running { background: rgba(160,73,36,0.12); color: var(--accent); }
-.step-status-done { background: rgba(47,122,85,0.1); color: var(--success); }
+.step-status-running {
+  background: rgba(212,104,124,0.12);
+  color: var(--accent);
+}
 
-/* 空状态（没有数据时） */
+.step-status-done {
+  background: rgba(74,155,127,0.1);
+  color: var(--success);
+}
+
 .empty-state {
   color: var(--muted);
   font-size: 13px;
-  padding: 20px;
-  border: 1px dashed rgba(185,133,81,0.3);
+  padding: 24px;
+  border: 1px dashed rgba(212,104,124,0.25);
   border-radius: 12px;
   text-align: center;
 }
 
-/* 脉冲动画 */
+/* ====== 动画 ====== */
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(160,73,36,0.22); }
-  70% { box-shadow: 0 0 0 8px rgba(160,73,36,0); }
-  100% { box-shadow: 0 0 0 0 rgba(160,73,36,0); }
+  0% { box-shadow: 0 0 0 0 rgba(212,104,124,0.25); }
+  70% { box-shadow: 0 0 0 8px rgba(212,104,124,0); }
+  100% { box-shadow: 0 0 0 0 rgba(212,104,124,0); }
 }
 
-/* ============================================ */
-/* 响应式设计（小屏幕适配） */
-/* ============================================ */
-
-/* 窄屏：双栏变单栏 */
-@media (max-width: 900px) {
+/* ====== 响应式 ====== */
+@media (max-width: 1000px) {
   .page { grid-template-columns: 1fr; }
   .workspace { grid-template-columns: 1fr; }
-  .sidebar { max-height: 200px; }
+  .sidebar { max-height: 220px; }
+}
+
+@media (max-width: 640px) {
+  .page { padding: 8px; gap: 10px; }
+  .message { max-width: 90%; }
+  .topbar h1 { font-size: 18px; }
 }

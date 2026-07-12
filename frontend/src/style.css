@@ -1,16 +1,16 @@
 /* ============================================================
- style.css — 全局样式（从 static/styles.css 完整移植）
+ style.css — 全局样式（粉白主题）
 ============================================================ */
 
 :root {
-  --bg: #f5f0e8;
-  --panel: #fffdf9;
-  --border: #d8c2a3;
-  --text: #24180f;
-  --muted: #6d5b49;
-  --accent: #a04924;
-  --accent-hover: #7b3416;
-  --success: #2f7a55;
+  --bg: #fdf2f6;
+  --panel: #ffffff;
+  --border: #f0d0db;
+  --text: #2d1a24;
+  --muted: #9b7a8a;
+  --accent: #d4687c;
+  --accent-hover: #b84d62;
+  --success: #4a9b7f;
   --radius: 16px;
 }
 
@@ -19,8 +19,8 @@
 body {
   font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
   color: var(--text);
-  background: radial-gradient(circle at top left, rgba(255,227,182,0.5) 0, transparent 30%),
-              linear-gradient(160deg, #f8f3eb, var(--bg));
+  background: radial-gradient(circle at top left, rgba(255,200,215,0.4) 0, transparent 35%),
+              linear-gradient(160deg, #fef8fa, var(--bg));
   min-height: 100vh;
 }
 
@@ -56,7 +56,8 @@ body {
 .sidebar-head h2 { font-size: 22px; }
 
 .sidebar-head button {
-  background: var(--border);
+  background: linear-gradient(135deg, var(--accent), #e898a8);
+  color: #fff;
   border: 0;
   border-radius: 999px;
   padding: 6px 14px;
@@ -75,7 +76,7 @@ body {
 
 .session-item {
   padding: 12px;
-  border: 1px solid rgba(185,133,81,0.15);
+  border: 1px solid rgba(212,104,124,0.15);
   border-radius: 12px;
   cursor: pointer;
   transition: border-color .15s;
@@ -84,7 +85,7 @@ body {
 .session-item:hover { border-color: var(--accent); }
 .session-item.active {
   border-color: var(--accent);
-  background: rgba(160,73,36,0.06);
+  background: rgba(212,104,124,0.06);
 }
 
 .session-item .title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
@@ -146,11 +147,14 @@ body {
   word-break: break-word;
 }
 
-.message.user { align-self: flex-end; background: #e8d4bc; }
+.message.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, #fce4ec, #f8d0db);
+}
 .message.assistant {
   align-self: flex-start;
   background: #fff;
-  border: 1px solid rgba(185,133,81,0.2);
+  border: 1px solid rgba(212,104,124,0.18);
 }
 
 .message .role {
@@ -166,12 +170,17 @@ body {
 .composer textarea {
   width: 100%;
   min-height: 80px;
-  border: 1px solid rgba(185,133,81,0.25);
+  border: 1px solid rgba(212,104,124,0.25);
   border-radius: 12px;
   padding: 10px;
   font: inherit;
   resize: vertical;
   outline: none;
+}
+
+.composer textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(212,104,124,0.1);
 }
 
 .composer-foot {
@@ -184,7 +193,7 @@ body {
 .composer-foot .hint { color: var(--muted); font-size: 12px; }
 
 .composer-foot button {
-  background: linear-gradient(135deg, var(--accent), #bf6838);
+  background: linear-gradient(135deg, var(--accent), #e898a8);
   color: #fff;
   border: 0;
   border-radius: 999px;
@@ -192,9 +201,11 @@ body {
   cursor: pointer;
   font-weight: 700;
   font-size: 14px;
+  transition: opacity .15s, transform .15s;
 }
 
-.composer-foot button:disabled { opacity: 0.6; cursor: not-allowed; }
+.composer-foot button:hover { transform: scale(1.03); }
+.composer-foot button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
 /* ====== 时间线 ====== */
 .timeline-area {
@@ -219,25 +230,25 @@ body {
 .timeline::before {
   content: "";
   position: absolute; left: 4px; top: 0; bottom: 0;
-  width: 2px; background: rgba(159,76,30,0.2);
+  width: 2px; background: rgba(212,104,124,0.2);
 }
 
 .timeline-step {
   position: relative;
   margin-bottom: 10px;
   padding: 10px 12px;
-  border: 1px solid rgba(185,133,81,0.15);
+  border: 1px solid rgba(212,104,124,0.12);
   border-radius: 12px;
   font-size: 13px;
-  background: rgba(255,252,247,0.9);
+  background: rgba(255,245,248,0.9);
 }
 
 .timeline-step::before {
   content: "";
   position: absolute; left: -19px; top: 12px;
   width: 10px; height: 10px; border-radius: 50%;
-  background: #6c5438;
-  border: 2px solid #f7efdf;
+  background: #d4a0ac;
+  border: 2px solid #fef5f7;
 }
 
 .timeline-step.running::before { background: var(--accent); animation: pulse 1.2s infinite; }
@@ -256,18 +267,18 @@ body {
   margin-left: 6px;
 }
 
-.step-status-running { background: rgba(160,73,36,0.12); color: var(--accent); }
-.step-status-done { background: rgba(47,122,85,0.1); color: var(--success); }
+.step-status-running { background: rgba(212,104,124,0.12); color: var(--accent); }
+.step-status-done { background: rgba(74,155,127,0.1); color: var(--success); }
 
 .empty-state {
   color: var(--muted); font-size: 13px; padding: 20px;
-  border: 1px dashed rgba(185,133,81,0.3); border-radius: 12px; text-align: center;
+  border: 1px dashed rgba(212,104,124,0.25); border-radius: 12px; text-align: center;
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(160,73,36,0.22); }
-  70% { box-shadow: 0 0 0 8px rgba(160,73,36,0); }
-  100% { box-shadow: 0 0 0 0 rgba(160,73,36,0); }
+  0% { box-shadow: 0 0 0 0 rgba(212,104,124,0.25); }
+  70% { box-shadow: 0 0 0 8px rgba(212,104,124,0); }
+  100% { box-shadow: 0 0 0 0 rgba(212,104,124,0); }
 }
 
 @media (max-width: 900px) {
