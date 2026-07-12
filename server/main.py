@@ -47,9 +47,9 @@ from fastapi.staticfiles import StaticFiles
 from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
 from pydantic import BaseModel
 
-from graph import build_persistent_graph
+from server.graph import build_persistent_graph
 
-# 前端静态文件目录（和 app.py 同级的 static/ 文件夹）
+# 前端静态文件目录（server/static/，Vite 构建到 server/static/dist/）
 FRONTEND_DIR = Path(__file__).resolve().parent / "static"
 # 会话元数据存储路径（和 checkpoint 在同一目录）
 THREAD_STORE_DB_PATH = "data/thread_store.sqlite"
@@ -677,5 +677,5 @@ def create_app() -> FastAPI:
     return app
 
 
-# 模块级 app 实例：uvicorn app:app 指向这里
+# 模块级 app 实例：uvicorn server.main:app 指向这里
 app = create_app()

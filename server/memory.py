@@ -55,15 +55,15 @@ from langgraph.graph.message import REMOVE_ALL_MESSAGES
 # RunnableConfig 包含了 thread_id 等运行时可配置参数
 from langgraph.types import RunnableConfig
 
-from config import (
+from server.config import (
     LONG_TERM_MEMORY_DB_PATH,
     LONG_TERM_MEMORY_TOP_K,
     MEMORY_MAX_SUMMARY_CHARS,
     MEMORY_SHORT_TERM_WINDOW,
     MEMORY_SUMMARY_TRIGGER_MESSAGES,
 )
-from state import QueryContext, TaskMemory, TravelAssistantState
-from llm import get_embedding_model
+from server.state import QueryContext, TaskMemory, TravelAssistantState
+from server.llm import get_embedding_model
 
 
 # ============================================================

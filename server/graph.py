@@ -77,16 +77,16 @@ from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
 from langgraph.graph import END, START, StateGraph
 from langgraph.prebuilt import ToolNode
 
-from config import CHECKPOINT_DB_PATH, LONG_TERM_MEMORY_DB_PATH, LONG_TERM_MEMORY_TOP_K
-from llm import get_model
-from memory import (
+from server.config import CHECKPOINT_DB_PATH, LONG_TERM_MEMORY_DB_PATH, LONG_TERM_MEMORY_TOP_K
+from server.llm import get_model
+from server.memory import (
     build_sqlite_memory_manager,
     create_finalize_memory_node,
     create_recall_memory_node,
     route_after_specialist_response,
 )
-from mcp_tools import load_amap_tools
-from nodes import (
+from server.mcp_tools import load_amap_tools
+from server.nodes import (
     analyze_query,
     clarify_query,
     create_specialist_node,
@@ -94,7 +94,7 @@ from nodes import (
     route_to_specialist,
     select_specialist_agent,
 )
-from state import TravelAssistantState
+from server.state import TravelAssistantState
 
 
 # ============================================================

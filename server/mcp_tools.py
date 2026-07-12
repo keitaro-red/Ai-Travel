@@ -37,7 +37,7 @@ from threading import Thread
 
 from langchain_mcp_adapters.client import MultiServerMCPClient
 
-from config import AMAP_MCP_MODULE
+from server.config import AMAP_MCP_MODULE
 
 
 def build_amap_server_config() -> dict:

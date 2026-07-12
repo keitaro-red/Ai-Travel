@@ -45,7 +45,7 @@ DASHSCOPE_EMBEDDING_MODEL = "text-embedding-v2"
 
 # MCP Server 的 Python 模块路径
 # 注意：当你 cd 到项目目录运行 uvicorn 时，要写 "mcp_server" 而不是带路径前缀
-AMAP_MCP_MODULE = "mcp_server"
+AMAP_MCP_MODULE = "server.mcp_server"
 
 
 # ============================================================

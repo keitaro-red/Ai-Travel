@@ -23,7 +23,7 @@ from functools import lru_cache
 # ChatOpenAI 默认连接 OpenAI，但可以通过 base_url 指向任何兼容的 API
 from langchain_openai import ChatOpenAI
 
-from config import DEEPSEEK_MODEL, DEEPSEEK_BASE_URL, DASHSCOPE_EMBEDDING_MODEL
+from server.config import DEEPSEEK_MODEL, DEEPSEEK_BASE_URL, DASHSCOPE_EMBEDDING_MODEL
 
 
 def has_api_key() -> bool:

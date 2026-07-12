@@ -11,7 +11,7 @@ export default defineConfig({
     },
   },
   build: {
-    // 构建产物输出到 ../static/dist/，让 FastAPI 直接托管
-    outDir: '../static/dist',
+    // 构建产物输出到 ../server/static/dist/，让 FastAPI 直接托管
+    outDir: '../server/static/dist',
   },
 })

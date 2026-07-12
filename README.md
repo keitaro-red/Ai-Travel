@@ -17,7 +17,7 @@
 用户浏览器 (Vue 3)
        │
        ▼
-  FastAPI (app.py)          ← HTTP + NDJSON 流式输出
+  FastAPI (server/main.py)   ← HTTP + NDJSON 流式输出
        │
        ▼
   LangGraph StateGraph      ← 多智能体编排引擎
@@ -92,7 +92,7 @@ pip install -r requirements.txt
 ### 5. 启动后端
 
 ```bash
-uvicorn app:app --reload
+uvicorn server.main:app --reload
 ```
 
 看到以下输出表示启动成功：
@@ -108,7 +108,7 @@ INFO:     Application startup complete.
 conda activate ai-travel
 
 # 进入前端目录
-cd frontend
+cd web
 
 # 安装 npm 依赖（仅第一次）
 npm install
@@ -125,17 +125,16 @@ npm run dev
 
 | 文件 / 文件夹 | 作用 |
 |---|---|
-| `config.py` | 所有配置（模型名称、路径、记忆参数、System Prompt） |
-| `state.py` | 数据结构定义——LangGraph 的"共享黑板"上有哪些字段 |
-| `llm.py` | AI 模型接入（DeepSeek 对话 + 阿里云 Embedding） |
-| `memory.py` | 三层记忆系统（短期窗口 / 中期任务状态 / 长期 SQLite 向量搜索） |
-| `nodes.py` | 图节点实现（意图分析、追问澄清、Agent 路由） |
-| `graph.py` | LangGraph 工作流图的"蓝图"——节点怎么连、箭头怎么画 |
-| `mcp_server.py` | 高德 MCP 工具服务端（天气查询、输入提示） |
-| `mcp_tools.py` | MCP 客户端——发现并加载高德工具 |
-| `app.py` | FastAPI 后端——API 路由、NDJSON 流式输出、静态文件托管 |
-| `frontend/` | Vue 3 + Vite 前端源码 |
-| `static/` | 旧版原生 JS 前端（仅供参考，已不再维护） |
+| `server/config.py` | 所有配置（模型名称、路径、记忆参数、System Prompt） |
+| `server/state.py` | 数据结构定义——LangGraph 的"共享黑板"上有哪些字段 |
+| `server/llm.py` | AI 模型接入（DeepSeek 对话 + 阿里云 Embedding） |
+| `server/memory.py` | 三层记忆系统（短期窗口 / 中期任务状态 / 长期 SQLite 向量搜索） |
+| `server/nodes.py` | 图节点实现（意图分析、追问澄清、Agent 路由） |
+| `server/graph.py` | LangGraph 工作流图的"蓝图"——节点怎么连、箭头怎么画 |
+| `server/mcp_server.py` | 高德 MCP 工具服务端（天气查询、输入提示） |
+| `server/mcp_tools.py` | MCP 客户端——发现并加载高德工具 |
+| `server/main.py` | FastAPI 后端——API 路由、NDJSON 流式输出、静态文件托管 |
+| `web/` | Vue 3 + Vite 前端源码 |
 | `.env.example` | API Key 配置模板 |
 | `requirements.txt` | Python 依赖列表 |
 
@@ -177,7 +176,7 @@ conda env config vars list   # 看看有没有列出三个 Key
 
 **A:** 换一个端口启动后端：
 ```bash
-uvicorn app:app --reload --port 8080
+uvicorn server.main:app --reload --port 8080
 ```
 然后修改 `frontend/vite.config.js` 中的 proxy 目标为 `http://localhost:8080`。
 

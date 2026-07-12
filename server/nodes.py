@@ -27,14 +27,14 @@ from typing import Literal
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, message_chunk_to_message
 from langchain_core.runnables import RunnableLambda
 
-from config import (
+from server.config import (
     GENERAL_AGENT_SYSTEM_PROMPT,
     TRAVEL_AGENT_SYSTEM_PROMPT,
     TRAVEL_PLANNER_AGENT_SYSTEM_PROMPT,
     WEATHER_AGENT_SYSTEM_PROMPT,
 )
-from memory import build_memory_context_messages
-from state import QueryContext, SpecialistAgent, TravelAssistantState
+from server.memory import build_memory_context_messages
+from server.state import QueryContext, SpecialistAgent, TravelAssistantState
 
 
 # ============================================================
